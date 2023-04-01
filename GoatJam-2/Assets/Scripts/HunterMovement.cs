@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class HunterMovement : MonoBehaviour
 {
@@ -176,5 +177,5 @@ public class HunterMovement : MonoBehaviour
         jump.speed=jump.addAmount+jump.speed;
        
     }
-
+   
 }

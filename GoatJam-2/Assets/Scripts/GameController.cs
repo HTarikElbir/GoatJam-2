@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+
     private static GameController gameController;
     [SerializeField] private MapBorder Map;
 
@@ -46,10 +48,7 @@ public class GameController : MonoBehaviour
 
 
     }
-
-
-
-
     
-    
+
+
 }

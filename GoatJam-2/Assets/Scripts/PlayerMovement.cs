@@ -101,4 +101,12 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.tag=="Hunter")
+        {
+            
+        }
+    }
+
 }
