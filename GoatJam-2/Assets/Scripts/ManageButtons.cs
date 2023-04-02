@@ -6,18 +6,11 @@ using UnityEngine.SceneManagement;
 public class ManageButtons : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool soundOn;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void startGame()
     {
+        soundOn=true;  
         SceneManager.LoadScene("SampleScene");
     }
     public void exitGame()
@@ -33,4 +26,22 @@ public class ManageButtons : MonoBehaviour
     {
         SceneManager.LoadScene("StartScene");
     }
+
+    public void SoundButton()
+    {
+       
+        
+        soundOn = !soundOn;
+        if (soundOn)
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+        }
+        else
+        {
+            gameObject.GetComponent<AudioSource>().Stop();
+        }
+        
+
+    }
+    
 }
