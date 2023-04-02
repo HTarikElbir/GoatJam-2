@@ -8,20 +8,25 @@ public class Move : MonoBehaviour
     private float turnSpeed=200.0f;
     private float horizontalInput;
     private float forwardInput;
+    private Vector2 upDirection = Vector3.forward;
+    private Rigidbody2D rb;
+    [SerializeField]private float jumpTime;
+    private bool amIJump;
 
-   /* private bool canDash = true;
-    private bool isDashing;
-    private float dashingPower = 10f;
-    private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private TrailRenderer tr;*/
-    
+    /* private bool canDash = true;
+     private bool isDashing;
+     private float dashingPower = 10f;
+     private float dashingTime = 0.2f;
+     private float dashingCooldown = 1f;
+
+     [SerializeField] private Rigidbody2D rb;
+     [SerializeField] private TrailRenderer tr;*/
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -37,11 +42,17 @@ public class Move : MonoBehaviour
         transform.Translate(Vector3.forward *Time.deltaTime*speed*forwardInput);
 
         transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
-       /* if (Input.GetKeyDown(KeyCode.Space)&& canDash)
+
+        if (Input.GetKeyDown(KeyCode.Space) && amIJump==false)
         {
-            StartCoroutine(Dash());
-        }*/
-        
+            Jump();
+
+        }
+        /* if (Input.GetKeyDown(KeyCode.Space)&& canDash)
+         {
+             StartCoroutine(Dash());
+         }*/
+
     }
     /* private void FixedUpdate()
      {
@@ -67,4 +78,16 @@ public class Move : MonoBehaviour
          canDash = true;
 
      }*/
+
+    private void Jump()
+    {
+        rb.velocity = new Vector2(2,0);
+        Invoke("OnJump",jumpTime);
+        amIJump = true;
+    }
+    private void OffJump()
+    {
+        amIJump = false;
+        rb.velocity = new Vector2(0,0);
+    }
 }

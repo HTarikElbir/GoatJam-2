@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 rightDirection=Vector2.right;
     private Vector2 leftDirection=Vector2.left;
-    private Vector2 upDirection=Vector2.up;
+    private Vector2 upDirection=Vector3.forward;
     private Vector2 downDirection=Vector2.down;
     private Vector2 origineDot=Vector2.down;
     private Vector2 originePointVector=Vector2.zero;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckKeyState()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)&&jumpRelaodİsTrue)
+        if (Input.GetKeyDown(KeyCode.Space)&&jumpRelaodİsTrue)
         {
             Jump(upDirection);
 
