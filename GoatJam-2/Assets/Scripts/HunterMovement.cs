@@ -91,7 +91,9 @@ public class HunterMovement : MonoBehaviour
         if(doItouch==true)
         {
             Invoke("OffTouch",4);
-            rb.velocity=(travelerSpeed*(originePointVector-(Vector2)transform.position).normalized);
+            Vector2 normalized=(originePointVector-(Vector2)transform.position).normalized;
+            rb.velocity=(travelerSpeed*normalized);
+            transform.rotation=Quaternion.LookRotation(Vector3.forward, normalized)*Quaternion.Euler(0, 0, Time.deltaTime);
             rightDirection=Vector2.right;
             angle = UnityEngine.Random.Range(-90, 90);
             rightDirection = Quaternion.Euler(0, 0, angle) * rightDirection;
@@ -115,7 +117,8 @@ public class HunterMovement : MonoBehaviour
             }
 
             // Oyun nesnesini seçilen yönde hareket ettir
-         
+            
+            transform.rotation=Quaternion.LookRotation(Vector3.forward, rightDirection)*Quaternion.Euler(0, 0, Time.deltaTime);
             rb.velocity=(Vector3)rightDirection * travelerSpeed;
 
         }
@@ -146,6 +149,7 @@ public class HunterMovement : MonoBehaviour
         OnJump();
         float randomX = UnityEngine.Random.Range(jump.İnsensitivity,-jump.İnsensitivity);
         newDirection = Quaternion.Euler(0, 0, randomX) * newDirection;
+        transform.rotation=Quaternion.LookRotation(Vector3.forward, newDirection)*Quaternion.Euler(0, 0, Time.deltaTime);
         rb.velocity=newDirection*jump.speed;
         OffJumpAfterTime();
 

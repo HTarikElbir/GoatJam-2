@@ -8,6 +8,11 @@ public class GameController : MonoBehaviour
 {
 
     private static GameController gameController;
+    
+
+    
+
+
     [SerializeField] private MapBorder Map;
 
 
@@ -20,10 +25,12 @@ public class GameController : MonoBehaviour
         public float minX;
 
     }
+
     private void Awake() {
         gameController=this;
         
     }
+
     public static float GetMaxX()
     {
         return gameController.Map.maxX;

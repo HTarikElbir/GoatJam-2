@@ -7,6 +7,7 @@ TagManager:
   - Hunter
   - player
   - wall
+  - PowerBall
   layers:
   - Default
   - TransparentFX
