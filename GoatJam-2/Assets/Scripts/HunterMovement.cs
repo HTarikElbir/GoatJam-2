@@ -8,16 +8,9 @@ public class HunterMovement : MonoBehaviour
 {
     private GameObject target;
     [SerializeField] private jumpSpeedParameter jump;
-    [SerializeField] private TravelerParameter traveler;
+    [SerializeField] private float travelerSpeed;
 
-    [Serializable]
-    public struct TravelerParameter
-    {
-        public float speed;
-        public float angleChangeSpeedRate;
-
-
-    }
+    
     [Serializable]
     public struct jumpSpeedParameter
     {
@@ -44,11 +37,10 @@ public class HunterMovement : MonoBehaviour
     private Vector2 originePointVector=Vector2.zero;
     private bool jumpRelaodİsTrue;
     private bool amIjumping;
-    private float timer=0;
     private float borderMaxX,borderminX,bordermaxY,borderminY;
     private float angle;
-    
-
+    private float theTimer;
+    private bool doItouch;
 
     void Start()
     {
@@ -64,6 +56,14 @@ public class HunterMovement : MonoBehaviour
 
    
 
+    }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag=="wall")
+        {
+            doItouch=true;
+            
+        }
+        
     }
 
     private void FixedUpdate() 
@@ -88,18 +88,39 @@ public class HunterMovement : MonoBehaviour
     }
     public void Traveler()
     {
-         rb.velocity = transform.right * traveler.speed;
+        if(doItouch==true)
+        {
+            Invoke("OffTouch",4);
+            rb.velocity=(travelerSpeed*(originePointVector-(Vector2)transform.position).normalized);
+            rightDirection=Vector2.right;
+            angle = UnityEngine.Random.Range(-90, 90);
+            rightDirection = Quaternion.Euler(0, 0, angle) * rightDirection;
+
+        }
+        else if(doItouch==false)
+        {
+            theTimer -= Time.deltaTime;
+            if (theTimer <= 0)
+            {
 
         
-        timer += Time.deltaTime;
-        if (timer >= 0.5f) {
-            angle += traveler.angleChangeSpeedRate;;
-            if (angle >= 360f) {
-                angle = 0f;
+            
+                theTimer++;
+
+                // Önceki yönün 90 derece içerisinden rastgele bir yön seç
+                angle = UnityEngine.Random.Range(-90, 90);
+                rightDirection = Quaternion.Euler(0, 0, angle) * rightDirection;
+
+            
             }
-            transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            timer = 0f;
+
+            // Oyun nesnesini seçilen yönde hareket ettir
+         
+            rb.velocity=(Vector3)rightDirection * travelerSpeed;
+
         }
+
+        
 
     
     }
@@ -177,5 +198,8 @@ public class HunterMovement : MonoBehaviour
         jump.speed=jump.addAmount+jump.speed;
        
     }
-   
+    private void OffTouch()
+    {
+        doItouch=false;
+    }
 }
